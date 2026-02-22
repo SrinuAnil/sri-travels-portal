@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import {motion} from "framer-motion";
 import axios from "../api/axios";
 import DirectorLayout from "../components/DirectorLayout";
@@ -12,7 +12,7 @@ const AllUsers = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     try {
       setLoading(true);
 
@@ -33,11 +33,11 @@ const AllUsers = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [page, search, role]);
 
   useEffect(() => {
     fetchUsers();
-  }, [page, search, role]);
+  }, [fetchUsers]);
 
   const toggleStatus = async (id) => {
     await axios.put(`/director/toggle-user/${id}`);

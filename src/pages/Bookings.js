@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "../api/axios";
 
 const Bookings = () => {
   const [bookings, setBookings] = useState([]);
   const [search, setSearch] = useState("");
 
-  const fetchBookings = async () => {
+  const fetchBookings = useCallback(async () => {
   if (search) {
     const res = await axios.get(`/admin/search/${search}`);
     setBookings(res.data);
@@ -13,11 +13,11 @@ const Bookings = () => {
     const res = await axios.get("/admin/bookings");
     setBookings(res.data);
   }
-};
+}, []);
 
   useEffect(() => {
     fetchBookings();
-  }, []);
+  }, [fetchBookings]);
 
   const updateStatus = async (id, status) => {
     await axios.put(`/admin/update-status/${id}`, { status });
