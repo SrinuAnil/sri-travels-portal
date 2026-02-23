@@ -8,8 +8,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
+    setLoading(true);
+    try{
     const res = await axios.post("/login", {
       phoneNumber,
       password
@@ -27,6 +30,11 @@ const Login = () => {
     } else {
       navigate("/dashboard");
     }
+  }catch(error) {
+    console.error(error);
+  } finally {
+    setLoading(false);
+  }
   };
 
   return (
@@ -41,9 +49,15 @@ const Login = () => {
         placeholder="Password"
         onChange={(e) => setPassword(e.target.value)} />
 
-      <button className="btn btn-primary"
+      <button className="btn btn-primary w-25"
         onClick={handleLogin}>
-        Login
+          {loading ? (
+          <div className="text-center my-1">
+            <div className="spinner-border text-primary" />
+          </div>
+        ) :
+        <h4>Login</h4>
+      }
       </button>
     </div>
   );

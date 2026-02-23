@@ -12,30 +12,68 @@ code {
     monospace;
 }
 
+.layout-wrapper {
+  display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  min-height: 100vh;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1000;
+}
+
+.sidebar.collapsed {
+  width: 80px;
+}
+
+.sidebar.mobile {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  transform: translateX(0);
+}
+
+.sidebar.mobile.collapsed {
+  transform: translateX(-100%);
+  width: 250px;
+}
+
+/* Overlay */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 999;
+}
+
+/* Content */
+.content-area {
+  flex: 1;
+  transition: margin-left 0.3s ease;
+}
+
+/* Active Link */
+.nav-link.active {
+  background-color: #0d6efd !important;
+  border-radius: 6px;
+}
+
+/* Sidebar Hover */
 .sidebar-link {
   border-radius: 8px;
-  padding: 10px 12px;
+  padding: 10px;
   transition: all 0.2s ease;
 }
 
 .sidebar-link:hover {
   background-color: #0d6efd;
-  color: white !important;
-}
-
-.nav-link.active {
-  background-color: #0d6efd !important;
-  border-radius: 8px;
-}
-
-.sidebar {
-  width: 250px;
-  min-height: 100vh;
-  transition: all 0.3s ease;
-}
-
-.sidebar.collapsed {
-  width: 80px;
 }
 
 .dark-mode {
