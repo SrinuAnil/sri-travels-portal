@@ -12,36 +12,36 @@ const AllUsers = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  const fetchUsers = useCallback(async () => {
-    try {
-      setLoading(true);
+  const loadUsers = useCallback(async () => {
+  try {
+    setLoading(true);
 
-      const res = await axios.get("/director/all-users", {
-        params: {
-          page,
-          limit: 25,
-          search,
-          role
-        }
-      });
+    const res = await axios.get("/director/all-users", {
+      params: {
+        page,
+        limit: 25,
+        search,
+        role
+      }
+    });
 
-      setUsers(res.data.users);
-      setTotalPages(res.data.totalPages);
+    setUsers(res.data.users);
+    setTotalPages(res.data.totalPages);
 
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  }, [page, search, role]);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoading(false);
+  }
+}, [page, search, role]);
 
-  useEffect(() => {
-    fetchUsers();
-  }, [fetchUsers]);
+useEffect(() => {
+  loadUsers();
+}, [loadUsers]);
 
   const toggleStatus = async (id) => {
     await axios.put(`/director/toggle-user/${id}`);
-    fetchUsers();
+    loadUsers();
   };
 
   return (

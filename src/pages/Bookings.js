@@ -13,8 +13,7 @@ const Bookings = () => {
     const res = await axios.get("/admin/bookings");
     setBookings(res.data);
   }
-  // eslint-disable-next-line
-}, []);
+}, [search]);
 
   useEffect(() => {
     fetchBookings();
